@@ -1,0 +1,9 @@
+<%- include('partials/_header') -%>
+<%- include('partials/_nav') -%>
+  <form action="/add" method="post">
+        <input type="text" name="nombre" required placeholder="nombre">
+        <input type="text" name="apellidos" required placeholder="apellido">
+        <input type="email" name="correo" required placeholder="correo">
+        <button type="submit">enviar</button>
+  </form>
+<%- include('partials/_footer') -%>
