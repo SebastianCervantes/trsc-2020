@@ -1,0 +1,300 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap');
+
+* {
+    color: #333333;
+    font-family: 'Montserrat', sans-serif;
+    outline: none;
+}
+
+html,
+body {
+    display: flex;
+    margin: 0;
+    max-width: 100%;
+    padding: 0;
+    position: relative;
+    width: 100%;
+}
+
+h1 {
+    color: #21BF7F;
+}
+
+h2 {
+    color: #333333;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav {
+    background-color: #ffffff;
+    background-image: linear-gradient(to bottom, #DDE300 0%, #00B96A 30%, #24B278 100%);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between;
+    max-height: 100vh;
+    width: 110px;
+}
+
+.nav-outer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    justify-content: center;
+    margin: 30px 0;
+    width: 100%;
+}
+
+.nav-outer:first-child {
+    margin-top: 50px;
+}
+
+.nav-outer:last-child {
+    margin-bottom: 50px;
+}
+
+.nav-center {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.nav-button {
+    align-items: center;
+    border-radius: 15px;
+    border: solid 2px #ffffff;
+    display: flex;
+    height: 60px;
+    justify-content: center;
+    transition: all .35s ease;
+    width: 60px;
+    transform: scale(1);
+}
+
+.nav-button:hover {
+    transform: scale(1.2);
+    background-color: #ffffff;
+}
+
+.logo-nav {
+    fill: #ffffff;
+    height: 65px;
+    position: relative;
+    width: 65px;
+}
+
+.nav-svg {
+    fill: #ffffff;
+    height: 35px;
+    position: relative;
+    transition: all .35s ease;
+    width: 35px;
+}
+
+.nav-svg.participante {
+    height: 40px;
+    width: 40px;
+}
+
+.nav-svg.logout {
+    height: 30px;
+    width: 30px;
+}
+
+.nav-button:hover .nav-svg {
+    fill: #00B96A;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/*///////////////////////////////////// D A S H B O A R D ////////////////////////////////////////*/
+
+.dashboard {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 1300px;
+}
+
+/* .dashboard > * {
+    border: 1px solid #cccccc
+} */
+
+.heading-dashboard {
+    align-items: flex-end;
+    display: flex;
+    height: 170px;
+    width: 100%;
+}
+
+.heading-title {
+    font-size: 42px;
+    margin: 40px 0;
+}
+
+.main-dashboard {
+    height: 680px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.dash-data {
+    background-color: #ffffff;
+    -webkit-box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.42);
+    -moz-box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.42);
+    box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.42);
+    border-radius: 15px;
+    margin-bottom: 35px;
+    position: relative;
+}
+
+.data-long {
+    width: 40%;
+}
+
+.data-short {
+    width: 25%;
+}
+
+[data-dashboard="registrados"]{
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+[data-dashboard="registro-campus"]{
+    height: 400px;
+}
+
+[data-dashboard="ingresos"]{
+    height: 120px;
+}
+
+[data-dashboard="tallas"]{
+    height: 480px;   
+}
+
+[data-dashboard="regimen-alimenticio"]{
+    height: 200px;
+}
+
+[data-dashboard="tiempo"]{
+    height: 120px;
+}
+
+.data-content {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.green-line {
+    border-bottom: solid 1px #21BF7F;
+}
+
+[data-dashboard="registro-campus"] > .data-content {
+
+}
+
+
+.data-content > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 5px;
+}
+
+.data-content > div > div{
+    display: flex;
+    align-items: center;
+}
+
+.icon-circle {
+    width: 60px;
+    height: 60px;
+    background-color: #DCEEE8;
+    border-radius: 50%;
+    position: relative;
+    margin-right: 10px;
+}
+
+.icon-circle > * {
+    width: 40px;
+    height: 40px;
+    fill: #21BF7F;
+}
+
+.data-content h1 {
+    font-size: 60px;
+    margin: 0;
+    line-height: 50px;
+}
+
+.data-liquidados {
+    margin-top: 10px;
+}
+
+.data-liquidados h2,
+.data-liquidados p {
+    margin: 0;
+}
+
+.data-liquidados > div {
+    display: flex;
+    position: relative;
+}
+
+.icon-check-mark {
+    display: inline-block;
+    background-color: #21BF7F;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    position: relative;
+    margin-right: 7px;
+}
+
+.icon-check-mark::before {
+    content: '';
+    width: 7px;
+    height: 3px;
+    background-color: #ffffff;
+    transform: rotateZ(45deg);
+    left: 6px;
+    top: 14px;
+    position: absolute;
+}
+
+.icon-check-mark::after {
+    content: '';
+    width: 11px;
+    height: 3px;
+    background-color: #ffffff;
+    transform: rotateZ(-45deg);
+    left: 10px;
+    top: 11px;
+    position: absolute;
+}

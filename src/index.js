@@ -7,7 +7,7 @@ const path = require ('path');
 const app = express();
 
 //settings
-app.set('port', process.env.PORT || 8443);
+app.set('port', process.env.PORT || 8080);
 app.set('view engine', 'ejs');
 app.set('views', path.join (__dirname, 'views'));
 app.set('public', path.join(__dirname, 'public'));
@@ -18,8 +18,8 @@ app.use(morgan('dev'));
 app.use(myConnection(mysql, {
     host: 'localhost',
     user: 'root', 
-    password: '',
-    port: 8888,
+    password: 'root',
+    port: 3306,
     database: 'trascendencias'
 }, 'single' ));
 
