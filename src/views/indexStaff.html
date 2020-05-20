@@ -21,7 +21,7 @@
                                 </p>
                             </div>
                             <h1>
-                                20
+                                <%= data[0].cantidad %>
                             </h1>
                         </div>
                         <div class="data-liquidados">
@@ -32,27 +32,169 @@
                                 </p>
                             </div>
                             <h2>
-                                8
+                                <%= data[0].liquidados %>
                             </h2>
                         </div>
                     </div>
                 </article>
                 <article class="dash-data data-long" data-dashboard="registro-campus">
-
+                    <div class="green-line width-100 flex-center">
+                        <h3 class="table-title data-content">
+                            Registro por Campus
+                        </h3>
+                    </div>
+                    <div class="data-content">
+                        <div class="table-row green-line">
+                            <p>
+                                Cetys Mexicali
+                            </p>
+                            <p>
+                                <%= data[0].campus_mxl %>
+                            </p>
+                        </div>
+                        <div class="table-row green-line">
+                            <p>
+                                Cetys Tijuana
+                            </p>
+                            <p>
+                                <%= data[0].campus_tj %>
+                            </p>
+                        </div>
+                        <div class="table-row green-line">
+                            <p>
+                                Cetys Ensenada
+                            </p>
+                            <p>
+                                <%= data[0].campus_ens %>
+                            </p>
+                        </div>
+                        <div class="table-row green-line">
+                            <p>
+                                Preparatoria
+                            </p>
+                            <p>
+                                <%= data[0].preparatoria %>
+                            </p>
+                        </div>
+                        <div class="table-row">
+                            <p>
+                                Otro
+                            </p>
+                            <p>
+                                <%= data[0].otro %>
+                            </p>
+                        </div>
+                    </div>
                 </article>
                 <article class="dash-data data-short" data-dashboard="ingresos">
-
+                    <div class="data-content">
+                        <div class="ingresos-icon">
+                            <div class="icon-circle flex-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.15 30.08"><defs><style>.cls-1{fill:#00B96A;}</style></defs><g id="Capa_2" data-name="Capa 2"><g id="Dashboard"><path class="cls-1" d="M12.43,26.53v3.55h-4V26.66A18.48,18.48,0,0,1,0,24.22l2.16-4.67a15.19,15.19,0,0,0,7.7,2.21c2.73,0,3.8-.74,3.8-1.82C13.66,16.38.4,19,.4,10.66c0-3.52,2.63-6.5,8-7.14V0h4V3.46a16.8,16.8,0,0,1,6.76,1.88l-2,4.71a14.27,14.27,0,0,0-6.47-1.73c-2.76,0-3.76.9-3.76,2,0,3.42,13.22.86,13.22,9.12C20.15,22.85,17.62,25.79,12.43,26.53Z"/></g></g></svg>                        </div>
+                            </div>
+                            <div class="ingresos">
+                                <p>
+                                    Ingreso de Carnets
+                                </p>
+                                <h3>
+                                    $ <%= data[0].ingresos %>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
                 </article>
                 <article class="dash-data data-short" data-dashboard="tallas">
-
+                    <div class="green-line width-100 flex-center">
+                        <h3 class="table-title data-content">
+                            Tallas Solicitadas
+                        </h3>
+                    </div>
+                    <div class="data-content">
+                        <div class="table-row green-line">
+                            <p>
+                                XS
+                            </p>
+                            <p>
+                                <%= data[0].talla_xs %>
+                            </p>
+                        </div>
+                        <div class="table-row green-line">
+                            <p>
+                                S
+                            </p>
+                            <p>
+                                <%= data[0].talla_s %>
+                            </p>
+                        </div>
+                        <div class="table-row green-line">
+                            <p>
+                                M
+                            </p>
+                            <p>
+                                <%= data[0].talla_m %>
+                            </p>
+                        </div>
+                        <div class="table-row green-line">
+                            <p>
+                                L
+                            </p>
+                            <p>
+                                <%= data[0].talla_l %>
+                            </p>
+                        </div>
+                        <div class="table-row green-line">
+                            <p>
+                                XL
+                            </p>
+                            <p>
+                                <%= data[0].talla_xl %>
+                            </p>
+                        </div>
+                        <div class="table-row">
+                            <p>
+                                XXL
+                            </p>
+                            <p>
+                                <%= data[0].talla_xxl %>
+                            </p>
+                        </div>
+                    </div>
                 </article>
                 <article class="dash-data data-short" data-dashboard="regimen-alimenticio">
-
+                    <div class="green-line width-100 flex-center">
+                        <h3 class="table-title data-content">
+                            Regimen Alimenticio
+                        </h3>
+                    </div>
+                    <div class="vegetarianos">
+                        <article>
+                            <h2>
+                                <%= data[0].veget_no %>
+                            </h2>
+                            <p>
+                                Regulares
+                            </p>
+                        </article>
+                        <article>
+                            <h2>
+                                <%= data[0].veget_si %>
+                            </h2>
+                            <p>
+                                Vegetarianos
+                            </p>
+                        </article>
+                    </div>
                 </article>
                 <article class="dash-data data-short" data-dashboard="tiempo">
-
+                    <div class="data-content dash-date">
+                        <li class="time_dashboard">D<span id="days"></span></li>
+                        <li  class="time_dashboard">H<span id="hours"></span></li>
+                        <li  class="time_dashboard">M<span id="minutes"></span></li>
+                        <li  class="time_dashboard">S<span id="seconds"></span></li>
+                    </div>
                 </article>
             </section>
         </section>
     </main>
+    <script src="js/staff_index_functions.js"></script>
 <%- include('partials/_staff_footer') -%>

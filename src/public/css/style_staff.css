@@ -16,7 +16,8 @@ body {
     width: 100%;
 }
 
-h1 {
+h1,
+h3 {
     color: #21BF7F;
 }
 
@@ -28,6 +29,10 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.width-100 {
+    width: 100%;
 }
 
 nav {
@@ -166,6 +171,10 @@ main {
     border-radius: 15px;
     margin-bottom: 35px;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .data-long {
@@ -213,11 +222,6 @@ main {
 .green-line {
     border-bottom: solid 1px #21BF7F;
 }
-
-[data-dashboard="registro-campus"] > .data-content {
-
-}
-
 
 .data-content > div {
     display: flex;
@@ -297,4 +301,91 @@ main {
     left: 10px;
     top: 11px;
     position: absolute;
+}
+
+.table-row {
+padding-top: 5px;
+}
+
+.table-title {
+    margin: 0;
+    padding-bottom: 20px;
+    font-size: 21px;
+}
+
+[data-dashboard="tallas"] .data-content {
+    width: 70%;
+}
+
+[data-dashboard="ingresos"] .data-content {
+    flex-direction: row;
+}
+
+.data-content .ingresos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+    justify-content: center;
+}
+
+.data-content .ingresos-icon {
+    width: auto;
+}
+
+.ingresos p,
+.ingresos h3 {
+    text-align: right;
+    margin: 0;
+}
+
+.ingresos h3 {
+    font-size: 21px;
+}
+
+.vegetarianos {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.vegetarianos article {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.vegetarianos article h2 {
+    margin: 0;
+    font-size: 46px;
+    line-height: 30px;
+}
+
+.vegetarianos article p {
+    margin: 10px 0 0;
+}
+
+.dash-date {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.time_dashboard {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    list-style-type: none;
+    text-transform: uppercase;
+    width: 25%;
+}
+
+.time_dashboard span {
+    font-size: 26px;
+    color: #00B96A;
+    font-weight: 600;
 }

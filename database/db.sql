@@ -148,9 +148,29 @@ INSERT IGNORE INTO pago(tipo, fecha, cantidad, deuda, id_u, estatus)VALUES(tipo_
 END
 //
 
--- DELIMITER //
--- CREATE PROCEDURE dashboard()
--- BEGIN
+DELIMITER //  
+CREATE PROCEDURE dashboard_queries() 
+BEGIN
+SELECT 
+    (SELECT COUNT(*) FROM usuario) AS cantidad,
+    (SELECT COUNT(p.estatus) FROM Pago AS p WHERE p.estatus="Pagado") AS liquidados,
+    (SELECT SUM(cantidad) FROM pago) AS ingresos,
+    (SELECT COUNT(u.campus) FROM usuario AS u WHERE u.campus='CetysMxl') AS campus_mxl,
+    (SELECT COUNT(u.campus) FROM usuario AS u WHERE u.campus='CetysTj') AS campus_tj,
+    (SELECT COUNT(u.campus) FROM usuario AS u WHERE u.campus='CetysEns') AS campus_ens,
+    (SELECT COUNT(u.campus) FROM usuario AS u WHERE u.campus='Prepatoria') AS preparatoria,
+    (SELECT COUNT(u.campus) FROM usuario AS u WHERE u.campus='Otro') AS otro,
+    (SELECT COUNT(u.talla) FROM usuario AS u WHERE u.talla='XS') AS talla_xs,
+    (SELECT COUNT(u.talla) FROM usuario AS u WHERE u.talla='S') AS talla_s,
+    (SELECT COUNT(u.talla) FROM usuario AS u WHERE u.talla='M') AS talla_m,
+    (SELECT COUNT(u.talla) FROM usuario AS u WHERE u.talla='L') AS talla_l,
+    (SELECT COUNT(u.talla) FROM usuario AS u WHERE u.talla='XL') AS talla_xl,
+    (SELECT COUNT(u.talla) FROM usuario AS u WHERE u.talla='XXL') AS talla_xxl,
+    (SELECT COUNT(u.veget) FROM usuario AS u WHERE u.veget='no') AS veget_no,
+    (SELECT COUNT(u.veget) FROM usuario AS u WHERE u.veget='si') AS veget_si
+   ;
+END
+//
 
 
 CALL registro('Kiara', 'Lucatero', 'kiara@gmail.com', '6862387628', '22', 'F', 'Aeroespacial', 'Otro', 4, 'XS', 'No', 'Almendras', 'dep/efec', '2020-10-03T10:20:42', 0, 950, 'Pendiente');
@@ -302,7 +322,7 @@ WHERE u.campus='Otro';
 
 -- Cantidad de camisetas solicitadas por talla
 -- XS
-SELECT COUNT(u.talla)
+SELECT COUNT(u.talla) AS 
 FROM Usuario AS u
 WHERE u.talla='XS';
 
