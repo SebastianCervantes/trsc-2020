@@ -16,4 +16,14 @@ router.post('/add', registroController.save);
 const staff_indexController = require('../controllers/staff_indexController');
 router.get('/staff', staff_indexController.list);
 
+const staff_participantsController = require('../controllers/staff_participantsController');
+router.get('/listado-participantes', staff_participantsController.list);
+
+const staff_activitiesController = require('../controllers/staff_activitiesController');
+router.get('/listado-actividades', staff_activitiesController.list);
+
+const staff_single_participantController = require('../controllers/staff_single_participantController');
+router.get('/:persona', staff_single_participantController.list);
+router.get('/participante/', staff_single_participantController.list);
+
 module.exports = router;

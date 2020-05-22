@@ -25,6 +25,12 @@ h2 {
     color: #333333;
 }
 
+a {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
 .flex-center {
     display: flex;
     justify-content: center;
@@ -33,6 +39,13 @@ h2 {
 
 .width-100 {
     width: 100%;
+}
+
+.spacer {
+    position: relative;
+    width: 110px;
+    height: 100vh;
+    z-index: 1;
 }
 
 nav {
@@ -44,6 +57,8 @@ nav {
     justify-content: space-between;
     max-height: 100vh;
     width: 110px;
+    position: fixed;
+    z-index: 20;
 }
 
 .nav-outer {
@@ -73,6 +88,11 @@ nav {
     width: 100%;
 }
 
+.nav-target {
+    position: relative;
+    z-index: 100;
+}
+
 .nav-button {
     align-items: center;
     border-radius: 15px;
@@ -80,14 +100,27 @@ nav {
     display: flex;
     height: 60px;
     justify-content: center;
-    transition: all .35s ease;
+    transition: all .2s ease;
     width: 60px;
     transform: scale(1);
+    z-index: 1;
+}
+
+.nav-button.active {
+    background-color: #ffffff;
+}
+
+.nav-button.active .nav-svg {
+    fill: #00B96A;
 }
 
 .nav-button:hover {
-    transform: scale(1.2);
+    transform: scale(1.15);
     background-color: #ffffff;
+}
+
+.nav-button.active:hover {
+    transform: scale(1);
 }
 
 .logo-nav {
@@ -103,6 +136,7 @@ nav {
     position: relative;
     transition: all .35s ease;
     width: 35px;
+    z-index: 1;
 }
 
 .nav-svg.participante {
@@ -129,7 +163,8 @@ main {
 
 /*///////////////////////////////////// D A S H B O A R D ////////////////////////////////////////*/
 
-.dashboard {
+.dashboard,
+.participants {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -142,25 +177,30 @@ main {
     border: 1px solid #cccccc
 } */
 
-.heading-dashboard {
+.header {
     align-items: flex-end;
     display: flex;
     height: 170px;
     width: 100%;
 }
 
-.heading-title {
+.header-title {
     font-size: 42px;
     margin: 40px 0;
 }
 
-.main-dashboard {
+.main-dashboard,
+.main-list {
     height: 680px;
     width: 100%;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: flex-start;
+}
+
+.main-list {
+    flex-wrap: nowrap;
 }
 
 .dash-data {
@@ -388,4 +428,170 @@ padding-top: 5px;
     font-size: 26px;
     color: #00B96A;
     font-weight: 600;
+}
+
+/*///////////////////////////////////// P A R T I C I P A N T E S ////////////////////////////////////////*/
+
+.list-participants,
+.list-activities,
+.open-single {
+    width: 100%;
+    display: flex;
+}
+
+.list-participants p,
+.list-activities p {
+    color: #00B96A;
+    font-weight: 500;
+    font-size: 18px;
+    margin: 5px 0 20px;
+}
+
+.list-participants p:nth-child(1),
+.data-row.people p:nth-child(1) {
+    width: 40%;
+    padding-left: 30px;
+}
+
+.list-participants p:nth-child(2),
+.data-row.people p:nth-child(2) {
+    width: 35%;
+    padding-left: 30px;
+}
+
+.data-row {
+    background-color: #ffffff;
+    -webkit-box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.42);
+    -moz-box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.42);
+    box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.42);
+    border-radius: 15px;
+    margin-bottom: 25px;
+    position: relative;
+    display: flex;
+    width: 100%;
+    transform: scale(1);
+    transition: all .2s ease;
+    height: 60px;
+}
+
+.data-row:hover {
+    transform: scale(1.035);
+    background-image: linear-gradient(to left, #DDE300 0%, #00B96A 30%, #24B278 100%);
+}
+
+.data-row:hover p {
+    color: #ffffff !important;
+}
+
+.data-row:last-child {
+    margin-bottom: 150px;
+}
+
+.Pendiente {
+    color: #ED1C24;
+}
+
+.Abono {
+    color: #0982C6;
+}
+
+.Pagado {
+    color: rgb(20, 189, 121);
+}
+
+/*///////////////////////////////////// A C T I V I D A D E S ////////////////////////////////////////*/
+.open-single {
+    width: 90%;
+}
+
+.disponible {
+    color: #0982C6;
+}
+
+.lleno {
+    color: #ED1C24;
+}
+
+.list-activities p:nth-child(1),
+.data-row.activity p:nth-child(1) {
+    width: 50%;
+    padding-left: 30px;
+}
+
+.list-activities p:nth-child(2),
+.list-activities p:nth-child(3) {
+    width: 25%;
+    padding-left: 30px;
+}
+
+.data-row.activity p:nth-child(2),
+.data-row.activity p:nth-child(3)  {
+    width: 26%;
+}
+
+.list-activities p:nth-child(4),
+.data-row.activity p:nth-child(4) {
+    text-align: center;
+    width: 20%;
+    padding-left: 30px;
+}
+
+.download-list {
+    width: 16%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.download-icon {
+    fill: rgb(20, 189, 121);
+    width: 30px;
+    height: 30px;
+}
+
+.data-row:hover .download-icon {
+    fill: #ffffff;
+}
+
+/*///////////////////////////////////// Q U E R I E S ////////////////////////////////////////*/
+@media screen and (max-width: 470px) {}
+
+@media screen and (min-width: 471px) and (max-width: 650px) {}
+
+@media screen and (min-width: 651px) and (max-width: 850px) {
+
+}
+
+@media screen and (min-width: 851px) and (max-width: 1024px) {
+    
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1200px) {
+    nav {
+        width: 90px !important;
+    }
+}
+
+@media screen and (min-width: 1201px) and (max-width: 1500px) {
+    nav {
+        width: 90px;
+    }
+
+    /*///////////////D A S H B O A R D////////////////////*/
+    .dashboard,
+    .participants {
+        transform: scale(0.9);
+    }
+
+    .header {
+        align-items: flex-end;
+        display: flex;
+        height: 100px;
+        width: 100%;
+    }
+    
+    .header-title {
+        font-size: 42px;
+        margin: 25px 0;
+    }
 }

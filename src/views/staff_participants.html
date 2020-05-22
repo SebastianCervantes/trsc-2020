@@ -1,0 +1,41 @@
+<%- include('partials/_staff_header') -%>
+<%- include('partials/_staff_nav') -%>
+<main>
+    <section class="participants">
+        <section class="header">
+            <h1 class="header-title">
+                Listado de Participantes
+            </h1>
+        </section>
+        <section class="main-list">
+            <div class="list-participants">
+                <p>
+                    Nombre
+                </p>
+                <p>
+                    Correo
+                </p>
+                <p>
+                    Pago
+                </p>
+            </div>
+
+            <% if (data) { %>
+                <% for(var i=0; i < data.length; i++ ) { %>
+                    <a class="data-row people" href=<%= data[i].id %>>
+                        <p>
+                            <%= data[i].nombre %>
+                            <%= data[i].apellidos %>
+                        </p>
+                        <p>
+                            <%= data[i].correo %>
+                        </p>
+                        <p class=<%= data[i].status %>>
+                            <%= data[i].status %>
+                        </p>
+                    </a>
+                <% } %>
+            <% } %>
+        </section>
+</main>
+<%- include('partials/_staff_footer') -%>

@@ -172,6 +172,39 @@ SELECT
 END
 //
 
+DELIMITER //  
+CREATE PROCEDURE listado_participantes() 
+BEGIN
+    SELECT u.id_usuario AS id, u.nombre AS nombre, u.apellidos AS apellidos, u.correo AS correo, p.estatus AS status
+    FROM (Usuario AS u JOIN Pago AS p )
+    WHERE u.id_usuario=p.id_u
+    ORDER BY u.nombre, u.apellidos
+    ;
+END
+//
+
+DELIMITER // 
+CREATE PROCEDURE datos_usuario( IN id INT) 
+BEGIN
+    SELECT u.id_usuario AS id, u.nombre AS nombre, u.apellidos AS apellidos, u.correo AS correo, u.telefono AS tel, u.edad AS edad, u.carrera AS carrera, u.campus AS campus, u.sem AS sem, u.talla, u.veget AS veget, u.alergias AS alergias, u.visita_usuario AS visita, p.tipo AS tipo, p.fecha AS fecha, p.cantidad AS cantidad, p.deuda AS deuda, p.estatus AS status, pt.id_t AS id_taller, pt.dia AS dia
+    FROM usuario u
+    JOIN pago as p ON u.id_usuario = p.id_u
+    JOIN participa as pt ON p.id_u = pt.id_u
+    WHERE u.id_usuario = id
+    ;
+END
+//
+
+DELIMITER //  
+CREATE PROCEDURE listado_talleres() 
+BEGIN
+    SELECT t.id_taller AS id, t.nombreT AS nombre, t.capacidadT AS capacidad, t.disp1 AS dia1, t.disp2 AS dia2
+    FROM taller AS t
+    ORDER BY t.nombreT
+    ;
+END
+//
+
 
 CALL registro('Kiara', 'Lucatero', 'kiara@gmail.com', '6862387628', '22', 'F', 'Aeroespacial', 'Otro', 4, 'XS', 'No', 'Almendras', 'dep/efec', '2020-10-03T10:20:42', 0, 950, 'Pendiente');
 
@@ -186,7 +219,7 @@ WHERE u.nombre='input' and u.apellidos='input';
 -- Listado de participantes por campus, seleccionando solo nombre, apellidos, correo y estatus de pago
 
 -- Preparatoria
-SELECT u.nombre, u.apellidos, u.correo, p.estatus
+SELECT u.id_usuario, u.nombre, u.apellidos, u.correo, p.estatus
 FROM (Usuario AS u JOIN Pago AS p ON u.id_usuario=p.id_usu)
 WHERE u.campus='Preparatoria';
 
@@ -282,83 +315,4 @@ WHERE id_visita='id_de_visita_aqui';
 
 
 
-
--- Dashboard QUERIES
-
--- Participantes registrados
-SELECT COUNT(*)
-FROM Usuario;
-
--- Carnets pagados
-SELECT COUNT(p.estatus)
-FROM Pago AS p
-WHERE p.estatus='Pagado';
-
--- Participantes registrados por campus
--- Prepa
-SELECT COUNT(u.campus)
-FROM Usuario AS u
-WHERE u.campus='Preparatoria';
-
--- Mexicali
-SELECT COUNT(u.campus)
-FROM Usuario AS u
-WHERE u.campus='Mexicali';
-
--- Tijuana
-SELECT COUNT(u.campus)
-FROM 	Usuario AS u
-WHERE u.campus='Tijuana';
-
--- Ensenada
-SELECT COUNT(u.campus)
-FROM Usuario AS u
-WHERE u.campus='Ensenada';
-
--- Otro
-SELECT COUNT(u.campus)
-FROM Usuario AS u
-WHERE u.campus='Otro';
-
--- Cantidad de camisetas solicitadas por talla
--- XS
-SELECT COUNT(u.talla) AS 
-FROM Usuario AS u
-WHERE u.talla='XS';
-
--- S
-SELECT COUNT(u.talla)
-FROM Usuario AS u
-WHERE u.talla='S';
-
--- M
-SELECT COUNT(u.talla)
-FROM Usuario AS u
-WHERE u.talla='M';
-
--- L
-SELECT COUNT(u.talla)
-FROM Usuario AS u
-WHERE u.talla='L';
-
--- XL
-SELECT COUNT(u.talla)
-FROM Usuario AS u
-WHERE u.talla='XL';
-
--- XXL
-SELECT COUNT(u.talla)
-FROM Usuario AS u
-WHERE u.talla='XXL';
-
--- Cantidad de personas vegetarianas y no vegetarianas
--- Vegetarianas
-SELECT COUNT(u.veget)
-FROM Usuario AS u
-WHERE u.veget='si';
-
--- No vegetarianas
-SELECT COUNT(u.veget)
-FROM Usuario AS u
-WHERE u.veget='no';
 

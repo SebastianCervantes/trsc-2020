@@ -1,16 +1,18 @@
 const controller = {};
 
 controller.list = (req, res) => {
+    const persona = req.params.persona;
     req.getConnection((err, conn) =>{
-        conn.query('CALL dashboard_queries', (err, data_dashboard) =>{
+        conn.query('CALL datos_usuario(?)',[persona], (err, data) =>{
             if(err){
                 res.json(err);
                 console.log(err);  
                 return;
             }
-            console.log(data_dashboard)
-            res.render('staff_index.html', {
-                data: data_dashboard[0],
+            console.log(persona);
+            console.log(data);
+            res.render('staff_single_participant.html', {
+                data: data[0],
                 title: 'Staff'
             });
         });
