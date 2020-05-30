@@ -137,17 +137,24 @@ VALUES
 (10, 4001, 1),
 (10, 4002, 2);
 
--- Storage Procedures
+
+-- S T O R A G E - P R O C E D U R E S
+
+-- Registro de usuarios
 DELIMITER //
-CREATE PROCEDURE registro(nombre_u VARCHAR(40), apellidos_u VARCHAR(60), correo_u VARCHAR(80), telefono_u VARCHAR(12), edad_u int, sexo_u VARCHAR(1), carrera_u VARCHAR(100), campus_u VARCHAR(20), sem_u int, talla_u VARCHAR(3), veget_u VARCHAR(2), alergias_u VARCHAR(100), tipo_p VARCHAR(10), fecha_p DATETIME, cantidad_p int, deuda_p int, estatus_p VARCHAR(15))
+CREATE PROCEDURE registro(nombre_u VARCHAR(40), apellidos_u VARCHAR(60), correo_u VARCHAR(80), telefono_u VARCHAR(14), edad_u int, sexo_u VARCHAR(1), carrera_u VARCHAR(100), campus_u VARCHAR(20), sem_u INT, talla_u VARCHAR(3), veget_u VARCHAR(2), alergias_u VARCHAR(100), tipo_p VARCHAR(10), fecha_p DATETIME, cantidad_p int, deuda_p int, estatus_p VARCHAR(15))
 BEGIN
-DECLARE id_pago INT;
-INSERT IGNORE INTO usuario(nombre, apellidos, correo, telefono, edad, sexo, carrera, campus, sem, talla, veget, alergias)VALUES(nombre_u, apellidos_u, correo_u, telefono_u, edad_u, sexo_u, carrera_u, campus_u, sem_u, talla_u, veget_u, alergias_u);
-SELECT id_usuario INTO id_pago FROM usuario WHERE correo = correo_u;
-INSERT IGNORE INTO pago(tipo, fecha, cantidad, deuda, id_u, estatus)VALUES(tipo_p, fecha_p, cantidad_p, deuda_p, id_pago, estatus_p);
+DECLARE id_variable INT;
+INSERT IGNORE INTO usuario(nombre, apellidos, correo, telefono, edad, sexo, carrera, campus, sem, talla, veget, alergias, visita_usuario)VALUES(nombre_u, apellidos_u, correo_u, telefono_u, edad_u, sexo_u, carrera_u, campus_u, sem_u, talla_u, veget_u, alergias_u, 5000);
+SELECT id_usuario INTO id_variable FROM usuario WHERE correo = correo_u;
+INSERT IGNORE INTO pago(tipo, fecha, cantidad, deuda, id_u, estatus)VALUES(tipo_p, fecha_p, cantidad_p, deuda_p, id_variable, estatus_p);
+INSERT IGNORE INTO participa(id_u, id_t, dia)VALUES(id_variable, 8080, 1);
+INSERT IGNORE INTO participa(id_u, id_t, dia)VALUES(id_variable, 8888, 2);
 END
 //
 
+
+-- Datos de Dashboard
 DELIMITER //  
 CREATE PROCEDURE dashboard_queries() 
 BEGIN
@@ -158,7 +165,7 @@ SELECT
     (SELECT COUNT(u.campus) FROM usuario AS u WHERE u.campus='CetysMxl') AS campus_mxl,
     (SELECT COUNT(u.campus) FROM usuario AS u WHERE u.campus='CetysTj') AS campus_tj,
     (SELECT COUNT(u.campus) FROM usuario AS u WHERE u.campus='CetysEns') AS campus_ens,
-    (SELECT COUNT(u.campus) FROM usuario AS u WHERE u.campus='Prepatoria') AS preparatoria,
+    (SELECT COUNT(u.campus) FROM usuario AS u WHERE u.campus='Preparatoria') AS preparatoria,
     (SELECT COUNT(u.campus) FROM usuario AS u WHERE u.campus='Otro') AS otro,
     (SELECT COUNT(u.talla) FROM usuario AS u WHERE u.talla='XS') AS talla_xs,
     (SELECT COUNT(u.talla) FROM usuario AS u WHERE u.talla='S') AS talla_s,
@@ -172,6 +179,7 @@ SELECT
 END
 //
 
+-- Listado de Participantes
 DELIMITER //  
 CREATE PROCEDURE listado_participantes() 
 BEGIN
@@ -183,10 +191,11 @@ BEGIN
 END
 //
 
+-- Datos de Usuario para Vista Individual
 DELIMITER // 
 CREATE PROCEDURE datos_usuario( IN id INT) 
 BEGIN
-    SELECT u.id_usuario AS id, u.nombre AS nombre, u.apellidos AS apellidos, u.correo AS correo, u.telefono AS tel, u.edad AS edad, u.carrera AS carrera, u.campus AS campus, u.sem AS sem, u.talla, u.veget AS veget, u.alergias AS alergias, u.visita_usuario AS visita, p.tipo AS tipo, p.fecha AS fecha, p.cantidad AS cantidad, p.deuda AS deuda, p.estatus AS status, pt.id_t AS id_taller, pt.dia AS dia
+    SELECT u.id_usuario AS id, u.nombre AS nombre, u.apellidos AS apellidos, u.correo AS correo, u.telefono AS tel, u.edad AS edad, u.carrera AS carrera, u.campus AS campus, u.sem AS sem, u.talla, u.veget AS veget, u.alergias AS alergias, u.visita_usuario AS visita, p.tipo AS tipo, DATE_FORMAT(p.fecha,GET_FORMAT(DATE,'EUR')) AS fecha, p.cantidad AS cantidad, p.deuda AS deuda, p.estatus AS status, pt.id_t AS id_taller, pt.dia AS dia
     FROM usuario u
     JOIN pago as p ON u.id_usuario = p.id_u
     JOIN participa as pt ON p.id_u = pt.id_u
@@ -195,12 +204,79 @@ BEGIN
 END
 //
 
+-- Insercion de Pago y Actividades del Participante
+DELIMITER // 
+CREATE PROCEDURE insertar_pago_actividades(cantidad_p INT, deuda_p INT, visita_v INT, taller1_t INT, taller2_t INT, id_us INT, fecha_p DATETIME) 
+BEGIN
+  DECLARE old_visita INT;
+  DECLARE old_taller1 INT;
+  DECLARE old_taller2 INT;
+  	-- SELECCION DE VISITA Y TALLERES ANTERIORES
+    SELECT visita_usuario INTO old_visita FROM usuario WHERE id_usuario = id_us;
+    SELECT id_t INTO old_taller1 FROM participa WHERE id_u = id_us AND dia = 1;
+    SELECT id_t INTO old_taller2 FROM participa WHERE id_u = id_us AND dia = 2;
+	-- CAMBIO DE DISPONIBILIDAD EN VISITA Y TALLERES ANTERIORES
+	UPDATE visita SET dispV = dispV + 1 WHERE id_visita = old_visita;
+    UPDATE taller SET disp1 = disp1 + 1 WHERE id_taller = old_taller1;
+    UPDATE taller SET disp2 = disp2 + 1 WHERE id_taller = old_taller2;
+    -- ACTUALIZACION DE VISITA Y TALLERES
+	UPDATE usuario SET visita_usuario = visita_v WHERE id_usuario = id_us;
+	UPDATE visita SET dispV = dispV - 1 WHERE id_visita = visita_v;
+    UPDATE participa SET id_t = taller1_t WHERE id_u = id_us AND dia = 1;
+    UPDATE participa SET id_t = taller2_t WHERE id_u = id_us AND dia = 2;
+    UPDATE taller SET disp1 = disp1 - 1 WHERE id_taller = taller1_t;
+    UPDATE taller SET disp2 = disp2 - 1 WHERE id_taller = taller2_t;
+    -- ACTUALIZACION DE DATOS DE PAGO
+     UPDATE pago SET fecha = fecha_p WHERE id_u = id_us;
+     UPDATE pago SET cantidad = cantidad_p WHERE id_u = id_us;
+     UPDATE pago SET deuda = deuda_p WHERE id_u = id_us;
+     UPDATE pago SET estatus = 'Pendiente' WHERE id_u = id_us AND cantidad = 0;
+     UPDATE pago SET estatus = 'Abono' WHERE id_u = id_us AND cantidad > 0;
+     UPDATE pago SET estatus = 'Pagado' WHERE id_u = id_us AND deuda = 0
+    ;
+END
+//
+
+-- Listado de Visitas para Seleccion en Vista Individual
+DELIMITER // 
+CREATE PROCEDURE selecciona_visita() 
+BEGIN
+    SELECT v.id_visita, v.nombreV, v.capacidadV, v.dispV
+    FROM visita v
+    ORDER BY v.nombreV
+    ;
+END
+//
+
+-- Listado de Talleres para Seleccion en Vista Individual
+DELIMITER // 
+CREATE PROCEDURE selecciona_taller() 
+BEGIN
+	SELECT t.id_taller, t.nombreT, t.capacidadT, t.disp1, t.disp2 
+    FROM taller AS t
+    ORDER BY t.nombret
+    ;
+END
+//
+
+-- Listado de Talleres
 DELIMITER //  
 CREATE PROCEDURE listado_talleres() 
 BEGIN
     SELECT t.id_taller AS id, t.nombreT AS nombre, t.capacidadT AS capacidad, t.disp1 AS dia1, t.disp2 AS dia2
     FROM taller AS t
     ORDER BY t.nombreT
+    ;
+END
+//
+
+-- Listado de Visitas
+DELIMITER //  
+CREATE PROCEDURE listado_visitas() 
+BEGIN
+    SELECT v.id_visita AS id, v.nombreV AS nombre, v.capacidadV AS capacidad, v.dispV AS dia1
+    FROM visita AS v
+    ORDER BY v.nombreV
     ;
 END
 //

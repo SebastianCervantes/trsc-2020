@@ -20,10 +20,11 @@ const staff_participantsController = require('../controllers/staff_participantsC
 router.get('/listado-participantes', staff_participantsController.list);
 
 const staff_activitiesController = require('../controllers/staff_activitiesController');
-router.get('/listado-actividades', staff_activitiesController.list);
+router.get('/listado-actividades/:actividad', staff_activitiesController.list);
 
 const staff_single_participantController = require('../controllers/staff_single_participantController');
-router.get('/:persona', staff_single_participantController.list);
+router.get('/participante/:persona', staff_single_participantController.list);
 router.get('/participante/', staff_single_participantController.list);
+router.post('/update', staff_single_participantController.save);
 
 module.exports = router;

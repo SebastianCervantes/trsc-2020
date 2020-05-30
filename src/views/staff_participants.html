@@ -22,8 +22,9 @@
 
             <% if (data) { %>
                 <% for(var i=0; i < data.length; i++ ) { %>
-                    <a class="data-row people" href=<%= data[i].id %>>
-                        <p>
+                    <% var x = '/participante/' + data[i].id; %>
+                    <a class="data-row people" href=<%= x %>>
+                        <p class="mayusculas">
                             <%= data[i].nombre %>
                             <%= data[i].apellidos %>
                         </p>

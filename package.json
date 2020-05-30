@@ -21,10 +21,14 @@
   },
   "homepage": "https://github.com/SebastianCervantes/trsc-2020#readme",
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "dateformat": "^3.0.3",
     "ejs": "^3.1.2",
     "express": "^4.17.1",
+    "express-messages": "^1.0.1",
     "express-myconnection": "^1.0.4",
+    "express-mysql-session": "^2.1.4",
+    "express-session": "^1.17.1",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1"
   }

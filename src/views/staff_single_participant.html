@@ -7,11 +7,237 @@
                 Participante
             </h1>
         </section>
-        <section>
-            <h1>
-                <%= data[0].nombre%>
-            </h1>
+        <section class="single-participant">
+            <div class="participant">
+                <section class="info-column-1">
+                    <div class="header-participant">
+                        <p>
+                            Nombre
+                        </p>
+                        <h2 class="mayusculas">
+                            <%= data[0].nombre%>
+                            <%= data[0].apellidos%>
+                        </h2>
+                        <article>
+                            <p>
+                                Status:
+                            </p>
+                            <p class="<%= data[0].status%>">
+                                <%= data[0].status%>
+                            </p>
+                        </article>
+                    </div>
+                    <ul class="info-participant-list">
+                        <li>
+                            <p>
+                                Campus:
+                            </p>
+                            <p>
+                                <%= data[0].campus%>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                Carrera:
+                            </p>
+                            <p>
+                                <%= data[0].carrera%>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                Edad:
+                            </p>
+                            <p>
+                                <%= data[0].edad%>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                Semestre:
+                            </p>
+                            <p>
+                                <%= data[0].sem%>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                Talla:
+                            </p>
+                            <p>
+                                <%= data[0].talla%>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                Vegetariano:
+                            </p>
+                            <p>
+                                <%= data[0].veget%>
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                Alergias:
+                            </p>
+                            <p>
+                                <%= data[0].alergias%>
+                            </p>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+            <form action="/update" method="post">
+                <section class="info-column-2">
+                    <p>
+                        Información de Contacto
+                    </p>
+                    <div class="contact-participant">
+                        <div>
+                            <p>
+                                Correo:
+                            </p>
+                            <p>
+                                <%= data[0].correo%>
+                            </p>
+                        </div>
+                        <div>
+                            <p>
+                                Teléfono:
+                            </p>
+                            <p>
+                                <%= data[0].tel%>
+                            </p>
+                        </div>
+                    </div>
+                    <p>
+                        Información de Pago
+                    </p>
+                    <div class="pay-participant">
+                        <h2 class="payment-left-margin">
+                            <%= data[0].tipo%>
+                        </h2>
+                        <div class="flex last-update payment-left-margin">
+                            <p>
+                                Última Actualización:
+                            </p>
+                            <p id="date">
+                                <%= data[0].fecha%>
+                            </p>
+                        </div>
+                        <div class="payment-left-margin payment-bottom-margin">
+                            <p>
+                                Cantidad:
+                            </p>
+                            <div class="quantity">
+                                <input type="number" name="cantidad" required
+                                    min="0" step="1" value="<%= data[0].cantidad%>">
+                            </div>
+                        </div>
+                        <div class="payment-left-margin">
+                            <p>
+                                Deuda:
+                            </p>
+                            <div class="quantity">
+                                <input type="number" name="deuda" required
+                                    min="0" step="1" value="<%= data[0].deuda%>">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="activities-participant">
+                    <h1 class="green-line">
+                        Actividades
+                    </h1>
+                    <section>
+                        <p>
+                            Visita
+                        </p>
+                        <% if( data[0].status !== 'Pagado') { %>
+                        <% var state = 'disabled'; %>
+                        <% var default_value = 'selected'; %>
+                        <% } %>
+                        <select name="visita" class="<%= state %>" >
+                            <option value="5000" <%= default_value %> >
+                                Opciones
+                            </option>
+                            <% for(var i=0; i < visita.length; i++ ) { %>
+                                <% if ( visita[i].disp2 <= 0 ) { %>
+                                    <% var available = 'disabled'; %>
+                                <% } else { %>
+                                    <% var available = ''; %>
+                                <% } %>
+                                <% if (  visita[i].id_visita === data[0].visita ) { %>
+                                    <% var choose = 'selected'; %>
+                                    <% var available = ''; %>
+                                <% } else { %>
+                                    <% var choose = ''; %>
+                                <% } %>
+                                    <% if(visita[i].id_visita !== 5000) { %>
+                                        <option value="<%= visita[i].id_visita %>" <%= available %> <%= choose %>>
+                                            <%= visita[i].nombreV %>
+                                        </option>
+                                    <% } %>
+                            <% } %>
+                        </select>
+                        <p>
+                            Taller Día 1
+                        </p>
+                        <select name="taller1" class="<%= state %>" >
+                            <option value="8080" <%= default_value %> >
+                                Opciones
+                            </option>
+                            <% for(var i=0; i < taller.length; i++ ) { %>
+                                <% if ( taller[i].disp1 <= 0 ) { %>
+                                    <% var available = 'disabled'; %>
+                                <% } else { %>
+                                    <% var available = ''; %>
+                                <% } %>
+                                <% if ( data[0].dia === 1 && taller[i].id_taller === data[0].id_taller ) { %>
+                                    <% var choose = 'selected'; %>
+                                <% } else { %>
+                                    <% var choose = ''; %>
+                                <% } %>
+                                    <% if(taller[i].id_taller !== 8080 && taller[i].id_taller !== 8888) { %>
+                                        <option value="<%= taller[i].id_taller %>" <%= available %> <%= choose %>>
+                                            <%= taller[i].nombreT %>
+                                        </option>
+                                    <% } %>
+                            <% } %>
+                        </select>
+                        <p>
+                            Taller Día 2
+                        </p>
+                        <select name="taller2" class="<%= state %>" >
+                            <option value="8888" <%= default_value %> >
+                                Opciones
+                            </option>
+                            <% for(var i=0; i < taller.length; i++ ) { %>
+                                <% if ( taller[i].disp2 <= 0 ) { %>
+                                    <% var available = 'disabled'; %>
+                                <% } else { %>
+                                    <% var available = ''; %>
+                                <% } %>
+                                <% if ( data[1].dia === 2 && taller[i].id_taller === data[1].id_taller ) { %>
+                                    <% var choose = 'selected'; %>
+                                <% } else { %>
+                                    <% var choose = ''; %>
+                                <% } %>
+                                    <% if(taller[i].id_taller !== 8080 && taller[i].id_taller !== 8888) { %>
+                                        <option value="<%= taller[i].id_taller %>" <%= available %> <%= choose %>>
+                                            <%= taller[i].nombreT %>
+                                        </option>
+                                    <% } %>
+                            <% } %>
+                        </select>
+                    </section>
+                    <button type="submit" class="button" value="Guardar" id="save_changes" disabled>
+                        Guardar
+                      </button>
+                </div>
+            </form>
         </section>
     </section>
 </main>
+<script src="/js/disable-button.js"></script>
 <%- include('partials/_staff_footer') -%>
