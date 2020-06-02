@@ -1,5 +1,5 @@
-const Cart = require('../models/cart');
 const controller = {};
+const Cart = require('../models/cart');
 var dateFormat = require('dateformat');
 var date = dateFormat("isoDate") + 'T' + dateFormat("isoTime");
 
@@ -13,34 +13,38 @@ controller.list = (req, res) => {
     cart.remove();
     cart.add(persona);
     req.session.cart = cart;
-    console.log(req.session.cart);
 
+    if (cart.keyCheck()){
     //Se renderiza la pagina con las consultas realizadas
-    req.getConnection((err, conn) =>{
-        conn.query('CALL datos_usuario(?); CALL selecciona_visita(); CALL selecciona_taller()',[persona], (err, data) =>{
-            if(err){
-                res.json(err);
-                console.log(err);  
-                return;
-            }
-            console.log(persona);
-            console.log(data[0]);
-            console.log(data[2]);
-            console.log(data[4]);
-            res.render('staff_single_participant.html', {
-                data: data[0],
-                visita: data[2],
-                taller: data[4],
-                title: 'Staff'
+        req.getConnection((err, conn) =>{
+            conn.query('CALL datos_usuario(?); CALL selecciona_visita(); CALL selecciona_taller()',[persona], (err, data) =>{
+                if(err){
+                    res.json(err);
+                    console.log(err);  
+                    return;
+                }
+                console.log(persona);
+                console.log(data[0]);
+                console.log(data[2]);
+                console.log(data[4]);
+                res.render('staff_single_participant.html', {
+                    data: data[0],
+                    visita: data[2],
+                    taller: data[4],
+                    title: 'Staff'
+                });
             });
         });
-    });
+    } else {
+        res.render('staff_index.html', {
+            title: 'Staff'
+        });
+    }
 };
 
 controller.save = (req, res, next) =>{
     const data = req.body;
     var cart = new Cart(req.session.cart ? req.session.cart : {});
-    console.log(req.session.cart.totalItems);
 
     const data_query = [
     data.cantidad,
@@ -59,9 +63,10 @@ controller.save = (req, res, next) =>{
                 console.log(err);
                 console.log(data);
                 return;
+            } else {
+                req.flash('success', 'Se actualizaron los datos');
+                res.redirect('back');
             }
-            req.flash('success', 'Se actualizaron los datos');
-            res.redirect('back');
         })
     });
 };

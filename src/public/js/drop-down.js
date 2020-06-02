@@ -1,7 +1,8 @@
 $('.dropdown').click(function () {
-    $('.dropdown-menu').toggleClass('active');
+    $('.dropdown').toggleClass('active');
 });
 $('.dropdown').focusout(function () {
-    $(this).find('.dropdown-menu').toggleClass('active');
+    $('.dropdown').removeClass('active');
 });
+
 /*End Dropdown Menu*/

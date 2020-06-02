@@ -1,5 +1,7 @@
 module.exports = function Cart(cart) {
     this.items = cart.items || {};
+    this.session = cart.session || null;
+    this.sessionKey = 'Session20T';
 
     this.add = function(id) {
        this.items[0] = id;
@@ -11,6 +13,30 @@ module.exports = function Cart(cart) {
 
     this.getId = function() {
         return this.items[0];
+    };
+
+    this.startSession = function() {
+        this.session = 'Session20T';
+    };
+
+    this.endSession = function() {
+        this.session = null;
+    };
+
+    this.getSession = function() {
+        return this.session;
+    };
+
+    this.getSessionKey = function() {
+        return this.sessionKey;
+    };
+
+    this.keyCheck = function() {
+        if(this.session == this.sessionKey) {
+            return true;
+        } else {
+            return false;
+        }
     };
 };
 

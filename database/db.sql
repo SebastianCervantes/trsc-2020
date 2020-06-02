@@ -281,6 +281,16 @@ BEGIN
 END
 //
 
+DELIMITER //  
+CREATE PROCEDURE login(user_u VARCHAR(50)) 
+BEGIN
+    SELECT s.usuario AS usuario, s.psw AS password
+    FROM staff AS s
+    WHERE s.usuario = user_u
+    ;
+END
+//
+
 
 CALL registro('Kiara', 'Lucatero', 'kiara@gmail.com', '6862387628', '22', 'F', 'Aeroespacial', 'Otro', 4, 'XS', 'No', 'Almendras', 'dep/efec', '2020-10-03T10:20:42', 0, 950, 'Pendiente');
 

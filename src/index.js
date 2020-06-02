@@ -50,7 +50,7 @@ app.use(session({
     store: sessionStore,
     resave: false,
     saveUninitialized: true //true para empezar a guardar informacion
-}))
+}));
 
 //Extender datos de formularios
 app.use(express.urlencoded({
@@ -74,6 +74,12 @@ app.use(require('./routes/routes'));
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(function (req, res, next) {
+    res.status(404).render('404.html', {
+        title: 'Error'
+    });
+});
 
 app.listen (app.get('port'),() => {
     console.log('server on port');

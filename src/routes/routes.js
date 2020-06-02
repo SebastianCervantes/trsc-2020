@@ -15,16 +15,24 @@ router.post('/add', registroController.save);
 //Staff DataBase Interface
 const staff_indexController = require('../controllers/staff_indexController');
 router.get('/staff', staff_indexController.list);
+router.post('/login', staff_indexController.login);
+
+const staff_dashboardController = require('../controllers/staff_dashboardController');
+router.get('/staff/dashboard', staff_dashboardController.list);
 
 const staff_participantsController = require('../controllers/staff_participantsController');
-router.get('/listado-participantes', staff_participantsController.list);
+router.get('/staff/listado-participantes', staff_participantsController.list);
 
 const staff_activitiesController = require('../controllers/staff_activitiesController');
-router.get('/listado-actividades/:actividad', staff_activitiesController.list);
+router.get('/staff/listado-actividades/:actividad', staff_activitiesController.list);
 
 const staff_single_participantController = require('../controllers/staff_single_participantController');
-router.get('/participante/:persona', staff_single_participantController.list);
-router.get('/participante/', staff_single_participantController.list);
+router.get('/staff/participante/:persona', staff_single_participantController.list);
+router.get('/staff/participante/', staff_single_participantController.list);
 router.post('/update', staff_single_participantController.save);
+
+//End Session
+const endSessionController = require('../controllers/endSessionController');
+router.post('/endSession', endSessionController.close);
 
 module.exports = router;
