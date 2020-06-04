@@ -1,12 +1,82 @@
 <% Object.keys(messages).forEach(function (type) { %>
-  <div class="message-container">
-      <div class="message <%= type %>" role="alert">
-        <p>
-          <% messages[type].forEach(function (message) { %>
-            <%= message %>
-          <% }) %>
-        </p>
+  <% if(type == 'complete' || type == 'canceled') { %>
+    <div class="message-container <%= type %>">
+      <div class="message" role="alert">
+          <div class="message_image"></div>
+          <h2>
+            <% messages[type].forEach(function (message) { %>
+              <%= message %>
+            <% }) %>
+          </h2>
       </div>
-  </div>
-  <% }) %>
+    </div>
+  <% } else { %>
+    <% if (type == 'paypal') { %>
+      <% /*///////////////////////////////// P A Y P A L /////////////////////////////////*/ %>
+      <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" id="myForm" class="pop-up <%= type %>">
+        <input type="hidden" name="cmd" value="_cart">
+        <input type="hidden" name="upload" value="1">
+        <input type="hidden" name="business" value="sb-pjztm1918638@business.example.com">
+        <input type="hidden" name="lc" value="MX">
+        <input type="hidden" name="item_name_1" value="Carnet Trascendencias">
+        <input type="hidden" name="item_number_1" value="1">
+        <input type="hidden" name="amount_1" value="950.00">
+        <input type="hidden" name="currency_code" value="MXN">
+        <input type="hidden" name="button_subtype" value="services">
+        <input type="hidden" name="no_note" value="0">
+        <input type="hidden" name="return" value="http://localhost:8080/registro/success">
+        <input type="hidden" name="cancel_return" value="http://localhost:8080/registro/cancel">
+        <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_SM.gif:NonHostedGuest">
+        <div class="shopping_confirm" id="confirm_message">
+          <h1>Atención</h1>
+          <p id="confirm_text">
+            Se enviará tu solicitud y realizarás
+            un pago por un total de <strong>$950.00 MXN</strong>
+            por medio Paypal.
+          </p>
+          <div class="shopping_options">
+            <div class="cancel" id="cancel">
+              Cancelar
+            </div>
+            <button type="submit" class="button" value="Continuar" id="submit">
+              Continuar
+            </button>
+          </div>
+        </div>
+      </form>
+    <% } else { %>
+      <% if (type == 'dep-efec') { %>
+        <% /*///////////////////////////////// D E P - E F E C /////////////////////////////////*/ %>
+        <form action="/add" method="post" id="myForm" class="pop-up <%= type %>">
+          <div class="shopping_confirm" id="confirm_message">
+            <h1>Atención</h1>
+            <p id="confirm_text">
+              Se enviará tu solicitud y realizarás
+              un pago por un total de <strong>$950.00 MXN</strong>
+              por medio de deposito o pago en efectivo.
+            </p>
+            <div class="shopping_options">
+              <div class="cancel" id="cancel">
+                Cancelar
+              </div>
+              <button type="submit" class="button" value="Continuar" id="submit">
+                Continuar
+              </button>
+            </div>
+          </div>
+        </form>
+      <% } else { %>
+        <div class="message-container">
+            <div class="message <%= type %>" role="alert">
+              <p>
+                <% messages[type].forEach(function (message) { %>
+                  <%= message %>
+                <% }) %>
+              </p>
+            </div>
+        </div>
+      <% } %>
+    <% } %>
+  <% } %>
+<% }) %>
   

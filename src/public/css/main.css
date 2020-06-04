@@ -118,7 +118,27 @@ input[type="submit"],
   width: 200px;
   padding: 11px 10px;
   text-align: center;
-  transition: 0.5s;
+  transition: all 0.5s ease;
+  pointer-events: all;
+}
+
+.button.disabled {
+  background-image: none;
+  background-color: #777777;
+  pointer-events: none;
+}
+
+.cancel {
+  background-image: none;
+  text-decoration: underline;
+  color: #00B96A;
+  background-color: #fff;
+  border-radius: 0;
+  width: 100px;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
 }
 
 button:hover,
@@ -127,6 +147,109 @@ input[type="submit"]:hover,
 #close:hover {
   background-position: right center;
 }
+
+/*///////////////////////////////////// M E N S A J E ////////////////////////////////////////*/
+
+.message-container {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #00000000;
+  pointer-events: none;
+  z-index: 200;
+}
+
+.message-container.complete,
+.message-container.canceled {
+  animation: fadein-pop 3s ease 0s 1;
+}
+
+@keyframes fadein-pop {
+  0% {
+    background-color: #00000000;
+  }
+  16% {
+    background-color: #000000bb;
+  }
+  84% {
+    background-color: #000000bb;
+  }
+  100% {
+    background-color: #00000000;
+  }
+}
+
+.message {
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 40px;
+  box-shadow: 0px 7px 30px 2px rgb(44, 44, 44);
+  -moz-box-shadow: 0px 7px 20px 2px rgb(44, 44, 44);
+  -webkit-box-shadow: 0px 7px 20px 2px rgb(44, 44, 44);
+  display: inline-flex;
+  height: 240px;
+  justify-content: center;
+  margin-bottom: 100px;
+  opacity: 0;
+  pointer-events: none;
+  position: relative;
+  width: 350px;
+  z-index: 201;
+}
+
+.complete .message,
+.canceled .message {
+  animation: fadein-message 3s ease 0s 1;
+}
+
+@keyframes fadein-message {
+  0% {
+    opacity: 0;
+  }
+  16% {
+    opacity: 1;
+  }
+  84% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.message_image {
+  width: 60px;
+  height: 60px;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0 10px 0 40px;
+  pointer-events: none;
+}
+
+.complete  .message_image {
+  background-image: url('../images/2x/Success@2x.png');
+}
+
+.canceled .message_image {
+  background-image: url('../images/2x/Error@2x.png');
+}
+
+.message h2 {
+  display: inline-block;
+  width: 70%;
+  margin: 0;
+  pointer-events: none;
+}
+
+.message.canceled h2 {
+  color: #FF0007;
+}
+
+/*///////////////////////////////////// N A V B A R ////////////////////////////////////////*/
 
 nav {
   display: flex;
@@ -281,6 +404,11 @@ nav > * {
   position: relative;
   top: 50px;
   opacity: 0;
+  pointer-events: none;
+}
+
+#menu-display.fade > a {
+  pointer-events: all;
 }
 
 #menu-display > a:nth-child(1) {
@@ -334,6 +462,7 @@ nav > * {
   100% {opacity: 1; top: 0px;}
 }
 
+/*///////////////////////////////////// I N D E X ////////////////////////////////////////*/
 
 main {
   align-items: center;
@@ -601,7 +730,7 @@ header .button {
   -webkit-box-shadow: 0px 7px 11px 1px rgba(125,125,125,1);
   -moz-box-shadow: 0px 7px 11px 1px rgba(125,125,125,1);
   box-shadow: 0px 7px 11px 1px rgba(125,125,125,1);
-  transition: all .5s ease;
+  transition: all .25s ease;
 }
 
 #actividades-section > a > article:hover {
@@ -726,11 +855,19 @@ footer .button {
 
 /*/////////////////////////////////////REGISTRO////////////////////////////////////////*/
 
+form {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
 #registro-section {
   margin-top: 30px;
   margin-bottom: 200px;
   display: flex;
   position: relative;
+  justify-content: space-between;
 }
 
 #registro-section h1,
@@ -1036,7 +1173,8 @@ select {
   right: 0;
 }
 
-.shopping_info {
+.shopping_info,
+.shopping_confirm {
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
@@ -1052,15 +1190,84 @@ select {
   margin-bottom: 20px;
 }
 
-.shopping_info h1 {
+.pop-up {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #00000000;
+  transition: all .5s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.pop-up.paypal,
+.pop-up.dep-efec {
+  background-color: #00000088;
+  pointer-events: all;
+}
+
+.shopping_confirm {
+  position: relative;
+  padding: 30px 40px;
+  margin-bottom: 100px;
+  -webkit-box-shadow: 0px 7px 20px 2px rgb(44, 44, 44);
+  -moz-box-shadow: 0px 7px 20px 2px rgb(44, 44, 44);
+  box-shadow: 0px 7px 30px 2px rgb(44, 44, 44);
+  opacity: 0;
+  pointer-events: none;
+  transition: all .5s ease;
+  z-index: 15;
+}
+
+.pop-up.paypal .shopping_confirm,
+.pop-up.dep-efec .shopping_confirm {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#submit {
+  pointer-events: none;
+}
+
+.pop-up.paypal .shopping_confirm #submit,
+.pop-up.dep-efec .shopping_confirm #submit {
+  pointer-events: all;
+}
+
+.shopping_info h1,
+.shopping_confirm h1 {
   width: 100%;
   font-size: 36px;
+}
+
+.shopping_confirm h1 {
+  margin: 0 0 10px;
+}
+
+.shopping_confirm p {
+  margin: 0;
+  font-weight: 400;
+  font-size: 19px;
+  margin-bottom: 30px;
+  color: #333333;
+}
+
+.shopping_confirm strong {
+  font-weight: 600;
+  color: #333333;
 }
 
 .shopping_options {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+
+.shopping_confirm .shopping_options {
+  width: 100%;
 }
 
 .shopping_info section {
@@ -1083,7 +1290,8 @@ select {
   width: 65%;
 }
 
-.shopping_options a {
+.shopping_options a,
+.cancel {
   margin: 0 40px 0 0;
   text-decoration: underline;
 }
@@ -1538,6 +1746,7 @@ strong {
   }
 
   #registro-section {
+    position: relative;
     flex-direction: column;
     margin-bottom: 120px;
   }
@@ -1997,11 +2206,15 @@ strong {
   }
 
   .cart_section {
-    width: 40%;
+    width: 35%;
   }
 
   .shopping_info {
-    width: 245px;
+    width: 210px;
+  }
+
+  .cart_section .button {
+    width: 160px;
   }
 
   #shopping_cart {
@@ -2049,6 +2262,14 @@ strong {
   .paybox [type="radio"]:checked + label, 
   .paybox [type="radio"]:not(:checked) + label {
     line-height: initial;
+  }
+
+  .cart_section {
+    width: 40%;
+  }
+
+  .shopping_info {
+    width: 280px;
   }
 
   .shopping_total_mobile {

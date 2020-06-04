@@ -272,4 +272,26 @@ window.addEventListener('scroll', function(e) {
         anchored_box.add('anchor');  
 
     }
-}); 
+});
+
+$(function(){
+    $('#cancel').on('click', function(){
+        $('.pop-up').removeClass('paypal');
+        $('.pop-up').removeClass('dep-efec');
+    });
+});
+
+// $(function(){
+//     $idForm = '#myForm';
+//     $idText = '#confirm_text';
+//     $('input[name="tipo"]').on('change', function(){
+//         $tipo_pago = $('input[name="tipo"]:checked', $idForm).val();
+//         if($tipo_pago == 'paypal') {
+//             $($idForm).attr('action', '');
+//             $($idText).text('Se enviará tu solicitud y realizarás un pago por un total de $950.00 MXN por medio de Paypal.');
+//         } else {
+//             $($idForm).attr('action', '/add');
+//             $($idText).text('Se enviará tu solicitud y realizarás un pago por un total de $950.00 MXN por medio de deposito o pago en efectivo.');
+//         }
+//     });
+// });

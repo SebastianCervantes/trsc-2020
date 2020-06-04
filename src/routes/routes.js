@@ -10,7 +10,9 @@ router.get('/actividades', actividadesController.list);
 
 const registroController = require('../controllers/registroController');
 router.get('/registro', registroController.list);
+router.post('/store', registroController.store);
 router.post('/add', registroController.save);
+router.get('/registro/:resp', registroController.ppResp);
 
 //Staff DataBase Interface
 const staff_indexController = require('../controllers/staff_indexController');
