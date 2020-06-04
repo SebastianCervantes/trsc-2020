@@ -5,6 +5,7 @@ var date = dateFormat("isoDate") + 'T' + dateFormat("isoTime");
 
 controller.list = (req, res) => {
     res.render('registro.html', {
+        data: null,
         title: 'Trascendencias'
     });
 };
@@ -34,10 +35,16 @@ controller.store = (req, res, next) => {
 
     if(data.tipo == 'paypal') {
         req.flash('paypal', 'Tu registro se ha completado');
-        res.redirect('back');
+        res.render('registro.html', {
+            data: cart.getData(),
+            title: 'Trascendencias'
+        });
     } else {
         req.flash('dep-efec', 'Tu registro se ha completado');
-        res.redirect('back');
+        res.render('registro.html', {
+            data: cart.getData(),
+            title: 'Trascendencias'
+        });
     }
 
 }
@@ -75,7 +82,7 @@ controller.save = (req, res) =>{
                 return;
             }
             req.flash('complete', 'Tu registro se ha completado');
-            res.redirect('/registro');
+            res.redirect('/');
         })
     });
 };
@@ -123,8 +130,13 @@ controller.ppResp = (req, res) =>{
             })
         });
     } else {
-        req.flash('canceled', 'Se interrumpio el proceso');
-        res.redirect('/registro');
+        if(response == "canceled"){
+            req.flash('canceled', 'Se interrumpio el proceso');
+            res.render('registro.html', {
+                data: cart.getData(),
+                title: 'Trascendencias'
+            });
+        }
     }
 };
 

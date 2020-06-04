@@ -8,19 +8,22 @@
         <h3>Llena los campos con tu información.</h3>
         <div class="data_group">
           <div class="input_group">
-            <input type="text" name="nombre" id="nombre" required placeholder=" ">
+            <input type="text" name="nombre" id="nombre" required placeholder=" "
+              <% if(data) { %> value="<%= data[0] %>" <% } else { %> value = "" <%};%> >
             <label for="nombre" class="form_label">
               Nombre
             </label>
           </div>
           <div class="input_group">
-            <input type="text" name="apellidos" id="apellidos" required placeholder=" ">
+            <input type="text" name="apellidos" id="apellidos" required placeholder=" "
+              <% if(data) { %> value="<%= data[1] %>" <% } else { %> value = "" <%};%> >
             <label for="apellidos" class="form_label">
               Apellido(s)
             </label>
           </div>
           <div class="input_group">
-            <input type="email" name="correo" id="correo" required placeholder=" ">
+            <input type="email" name="correo" id="correo" required placeholder=" "
+              <% if(data) { %> value="<%= data[2] %>" <% } else { %> value = "" <%};%> >
             <label for="correo" class="form_label">
               Correo
             </label>
@@ -28,13 +31,15 @@
           <div class="input_group media_columna m_right_form">
             <input type="tel" name="telefono" id="telefono" required placeholder=" "
               onkeydown="javascript:backspacerDOWN(this,event);" 
-              onkeyup="javascript:backspacerUP(this,event);" minlength="14" maxlength="14">
+              onkeyup="javascript:backspacerUP(this,event);" minlength="14" maxlength="14"
+              <% if(data) { %> value="<%= data[3] %>" <% } else { %> value = "" <%};%> >
             <label for="telefono" class="form_label">
                   Teléfono
               </label>
           </div>
           <div class="input_group media_columna">
-            <input type="number" name="edad" id="edad" min="1" required placeholder=" ">
+            <input type="number" name="edad" id="edad" min="1" required placeholder=" "
+              <% if(data) { %> value="<%= data[4] %>" <% } else { %>  <%};%> >
             <label for="edad" class="form_label">
               Edad
             </label>
@@ -43,13 +48,15 @@
             <p class="input_title">Sexo</p>
             <section>
               <div>
-                <input type="radio" name="sexo" value="M" id="hombre" checked>
+                <input type="radio" name="sexo" value="M" id="hombre"
+                  <% if(data == null || data[5] == 'M') {%> checked <%}%> >
                 <label for="hombre" class="radio_label">
                   Hombre
                 </label>
               </div>
               <div>
-                <input type="radio" name="sexo" id="mujer" value="F">
+                <input type="radio" name="sexo" id="mujer" value="F"
+                  <% if(data != null && data[5] == 'F') {%> checked <%}%> >
                 <label for="mujer" class="radio_label">
                   Mujer
                 </label>
@@ -57,50 +64,51 @@
             </section>
           </div>
           <div class="input_group media_columna m_right_form">
-            <input type="text" name="carrera" id="carrera" required placeholder=" ">
+            <input type="text" name="carrera" id="carrera" required placeholder=" "
+              <% if(data) { %> value="<%= data[7] %>" <% } else { %> value = "" <%};%> >
             <label for="carrera" class="form_label">
                 Carrera
             </label>
           </div>
           <div class="input_group media_columna select_group">
             <select id="campus" name="campus">
-              <option value="0" disabled selected>Selecciona</option>
-              <option value="Preparatoria">Preparatoria</option>
-              <option value="CetysMxl">Cetys Mexicali</option>
-              <option value="CetysTj">Cetys Tijuana</option>
-              <option value="CetysEns">Cetys Ensenada</option>
-              <option value="Otro">Otro</option>
+              <option value="0" disabled  <% if(data == null) { %> selected <% } %> >Selecciona</option>
+              <option value="Preparatoria" <% if(data != null && data[7] == 'Preparatoria') { %> selected <% } %> >Preparatoria</option>
+              <option value="CetysMxl" <% if(data != null && data[7] == 'CetysMxl') { %> selected <% } %> >Cetys Mexicali</option>
+              <option value="CetysTj" <% if(data != null && data[7] == 'CetysTj') { %> selected <% } %> >Cetys Tijuana</option>
+              <option value="CetysEns" <% if(data != null && data[7] == 'CetysEns') { %> selected <% } %> >Cetys Ensenada</option>
+              <option value="Otro" <% if(data != null && data[7] == 'Otro') { %> selected <% } %> >Otro</option>
             </select>
             <p>Campus</p>
           </div>
           <div class="input_group media_columna m_right_form select_group">
             <select id="semestre" name="sem">
-              <option value="0" disabled selected>Selecciona</option>
-              <option value="1">Primero</option>
-              <option value="2">Segundo</option>
-              <option value="3">Tercero</option>
-              <option value="4">Cuarto</option>
-              <option value="5">Quinto</option>
-              <option value="6">Sexto</option>
-              <option value="7">Septimo</option>
-              <option value="8">Octavo</option>
+              <option value="0" disabled <% if(data == null) { %> selected <% } %> >Selecciona</option>
+              <option value="1" <% if(data != null && data[8] == '1') { %> selected <% } %> >Primero</option>
+              <option value="2" <% if(data != null && data[8] == '2') { %> selected <% } %> >Segundo</option>
+              <option value="3" <% if(data != null && data[8] == '3') { %> selected <% } %> >Tercero</option>
+              <option value="4" <% if(data != null && data[8] == '4') { %> selected <% } %> >Cuarto</option>
+              <option value="5" <% if(data != null && data[8] == '5') { %> selected <% } %> >Quinto</option>
+              <option value="6" <% if(data != null && data[8] == '6') { %> selected <% } %> >Sexto</option>
+              <option value="7" <% if(data != null && data[8] == '7') { %> selected <% } %> >Septimo</option>
+              <option value="8" <% if(data != null && data[8] == '8') { %> selected <% } %> >Octavo</option>
             </select>
             <p>Semestre</p>
           </div>
           <div class="input_group media_columna select_group">
             <select id="talla" name="talla">
-              <option value="0" disabled selected>Selecciona</option>
-              <option value="XS">XS</option>
-              <option value="S">S</option>
-              <option value="M">M</option>
-              <option value="L">L</option>
-              <option value="XL">XL</option>
-              <option value="XXL">XXL</option>
+              <option value="0" disabled <% if(data == null) { %> selected <% } %> >Selecciona</option>
+              <option value="XS" <% if(data != null && data[9] == 'XS') { %> selected <% } %> >XS</option>
+              <option value="S" <% if(data != null && data[9] == 'S') { %> selected <% } %> >S</option>
+              <option value="M" <% if(data != null && data[9] == 'M') { %> selected <% } %> >M</option>
+              <option value="L" <% if(data != null && data[9] == 'L') { %> selected <% } %> >L</option>
+              <option value="XL" <% if(data != null && data[9] == 'XL') { %> selected <% } %> >XL</option>
+              <option value="XXL" <% if(data != null && data[9] == 'XXL') { %> selected <% } %> >XXL</option>
             </select>
             <p>Talla</p>
           </div>
           <div class="input_group">
-            <input type="text" name="alergias" id="alergias" placeholder=" ">
+            <input type="text" name="alergias" id="alergias" placeholder="" <% if(data) { %> value="<%= data[11] %>" <% } else { %> value = "" <%};%>">
             <label for="name" class="form_label">
               ¿Tienes Alergias?
             </label>
@@ -109,13 +117,15 @@
             <p class="input_title">¿Eres Vegetariano?</p>
             <section>
               <div>
-                <input type="radio" name="veget" id="No_Vegetariano" value="No" checked>
+                <input type="radio" name="veget" id="No_Vegetariano" value="No" 
+                  <% if(data == null || data[10] == 'No') {%> checked <%}%> >
                 <label for="No_Vegetariano" class="radio_label">
                   No
                 </label>
               </div>
               <div>
-                <input type="radio" name="veget" value="Si" id="Si_Vegetariano">
+                <input type="radio" name="veget" value="Si" id="Si_Vegetariano"
+                  <% if(data != null && data[10] == 'Si') {%> checked <%}%> >
                 <label for="Si_Vegetariano" class="radio_label">
                   Sí
                 </label>
@@ -132,16 +142,18 @@
           <div class="input_group radio_group" id="tipo_pago">
             <section>
               <div class="paybox">
-                <input type="radio" name="tipo" value="dep/efec" id="dep/efec" checked>
+                <input type="radio" name="tipo" value="dep/efec" id="dep/efec"
+                  <% if(data == null || data[12] == 'dep/efec') {%> checked <%}%> >
                 <label for="dep/efec" class="radio_label">
                   Deposito/Efectivo
                 </label>
               </div>
               <h3>ó</h3>
               <div class="paybox">
-                <input type="radio" name="tipo" id="paypal" value="paypal">
+                <input type="radio" name="tipo" id="paypal" value="paypal"
+                  <% if(data != null && data[12] == 'paypal') {%> checked <%}%> >
                 <label for="paypal" class="radio_label">
-                  <img src="images/SVG/paypal.svg" alt="paypal" id="paypal_image">
+                  <img src="/images/SVG/paypal.svg" alt="paypal" id="paypal_image">
                 </label>
               </div>
             </section>
@@ -195,5 +207,5 @@
     </div>
   </div>
 </form>
-<script src="js/functions-register.js"></script>
+<script src="/js/functions-register.js"></script>
 <%- include('partials/_footer') -%>
